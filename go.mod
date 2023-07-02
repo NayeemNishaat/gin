@@ -1,4 +1,4 @@
-module Developer/Projects/gin
+module gin
 
 go 1.20
 

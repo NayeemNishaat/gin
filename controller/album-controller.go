@@ -1,8 +1,9 @@
-package main
+package controller
 
 import (
 	"bytes"
 	"fmt"
+	"gin/model"
 	"io"
 	"net/http"
 
@@ -10,13 +11,13 @@ import (
 )
 
 // getAlbums responds with the list of all albums as JSON.
-func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+func GetAlbums(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, model.Albums)
 }
 
 // postAlbums adds an album from JSON received in the request body.
-func postAlbums(c *gin.Context) {
-	var newAlbum album
+func PostAlbums(c *gin.Context) {
+	var newAlbum model.Album
 
 	bb, _ := io.ReadAll(c.Request.Body) // Important: c.Request.Body will be empty if we read it
 	c.Request.Body = io.NopCloser(bytes.NewReader(bb))
@@ -31,18 +32,18 @@ func postAlbums(c *gin.Context) {
 	}
 
 	// Add the new album to the slice.
-	albums = append(albums, newAlbum)
+	model.Albums = append(model.Albums, newAlbum)
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
 
 // getAlbumByID locates the album whose ID value matches the id
 // parameter sent by the client, then returns that album as a response.
-func getAlbumByID(c *gin.Context) {
+func GetAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
 	// Loop through the list of albums, looking for
 	// an album whose ID value matches the parameter.
-	for _, a := range albums {
+	for _, a := range model.Albums {
 		if a.ID == id {
 			c.IndentedJSON(http.StatusOK, a)
 			return
