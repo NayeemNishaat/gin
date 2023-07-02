@@ -1,15 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
-
-type E struct {
-	Events string
-}
 
 // getAlbums responds with the list of all albums as JSON.
 func getAlbums(c *gin.Context) {
@@ -20,13 +18,11 @@ func getAlbums(c *gin.Context) {
 func postAlbums(c *gin.Context) {
 	var newAlbum album
 
-	// d, _ := io.ReadAll(c.Request.Body) // Important: c.Request.Body will be empty if we read it
-	// fmt.Println(string(d))
+	bb, _ := io.ReadAll(c.Request.Body) // Important: c.Request.Body will be empty if we read it
+	c.Request.Body = io.NopCloser(bytes.NewReader(bb))
+	fmt.Println(string(bb))
 
 	// data := struct{}{} // Note: Inline struct
-	data := &E{}
-	c.Bind(data)
-	fmt.Println(data)
 
 	// Call BindJSON to bind the received JSON to newAlbum.
 	if err := c.BindJSON(&newAlbum); err != nil {
