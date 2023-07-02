@@ -27,4 +27,8 @@ func main() {
 	router.POST("/albums", postAlbums)
 
 	router.Run("localhost:3000")
+	// router.Run(":3000")
+	// router.Run()
 }
+
+// nodemon -q -e go --signal SIGTERM --exec go run .
