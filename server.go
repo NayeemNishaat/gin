@@ -1,19 +1,17 @@
 package main
 
 import (
-	"gin/controller"
+	"gin/route"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := gin.Default()
+	server := gin.Default()
 
-	router.GET("/albums", controller.GetAlbums)
-	router.GET("/albums/:id", controller.GetAlbumByID)
-	router.POST("/albums", controller.PostAlbums)
+	route.AlbumRoutes(server)
 
-	router.Run("localhost:3000")
+	server.Run("localhost:3000")
 	// router.Run(":3000")
 	// router.Run()
 }
