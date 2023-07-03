@@ -9,7 +9,7 @@ import (
 func AlbumRoutes(s *gin.Engine) {
 	router := s.Group("/album")
 
-	router.GET("/", controller.GetAlbums)
+	router.GET("/", controller.GetAllAlbums)
 	router.GET("/:id", controller.GetAlbumByID)
-	router.POST("/", controller.PostAlbums)
+	router.POST("/", controller.CreateAlbum)
 }
