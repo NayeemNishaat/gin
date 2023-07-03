@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gin/middleware"
 	"gin/route"
 	"io"
 	"os"
@@ -24,6 +25,8 @@ func main() {
 	storeLog()
 
 	server := gin.Default()
+
+	server.Use(middleware.Auth())
 
 	route.AlbumRoutes(server)
 
