@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gin/model"
 	"gin/route"
 	"io"
 	"os"
@@ -23,12 +24,14 @@ func storeLog() {
 
 func main() {
 	storeLog()
+	model.ConnectDataBase()
 
 	server := gin.Default()
 	globalRouter := server.Group("/api/v1")
 
 	route.AlbumRoutes(globalRouter)
 	route.AuthRoutes(globalRouter)
+	route.Protected(globalRouter)
 
 	server.Run("localhost:3000")
 	// router.Run(":3000")
