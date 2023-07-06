@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"gin/middleware"
 	"gin/route"
 	"io"
 	"os"
@@ -25,10 +24,9 @@ func main() {
 	storeLog()
 
 	server := gin.Default()
+	globalRouter := server.Group("/api/v1")
 
-	server.Use(middleware.Auth())
-
-	route.AlbumRoutes(server)
+	route.AlbumRoutes(globalRouter)
 
 	server.Run("localhost:3000")
 	// router.Run(":3000")

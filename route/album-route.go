@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AlbumRoutes(s *gin.Engine) {
-	router := s.Group("/album")
+func AlbumRoutes(gr *gin.RouterGroup) {
+	router := gr.Group("/album")
 
 	router.GET("/", controller.GetAllAlbums)
 	router.GET("/:id", controller.GetAlbumByID)

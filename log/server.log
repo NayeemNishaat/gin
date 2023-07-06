@@ -4,14 +4,9 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /album/                   --> gin/controller.GetAllAlbums (4 handlers)
-[GIN-debug] GET    /album/:id                --> gin/controller.GetAlbumByID (4 handlers)
-[GIN-debug] POST   /album/                   --> gin/controller.CreateAlbum (4 handlers)
+[GIN-debug] GET    /api/v1/album/            --> gin/controller.GetAllAlbums (3 handlers)
+[GIN-debug] GET    /api/v1/album/:id         --> gin/controller.GetAlbumByID (3 handlers)
+[GIN-debug] POST   /api/v1/album/            --> gin/controller.CreateAlbum (3 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:3000
-[GIN] 2023/07/03 - 18:00:55 |[90;43m 401 [0m|      14.208µs |       127.0.0.1 |[97;44m GET     [0m "/album/"
-[GIN] 2023/07/03 - 18:01:03 |[90;43m 401 [0m|      13.917µs |       127.0.0.1 |[97;44m GET     [0m "/album/"
-[GIN] 2023/07/03 - 18:01:05 |[90;43m 401 [0m|      10.958µs |       127.0.0.1 |[97;44m GET     [0m "/album/"
-[GIN] 2023/07/03 - 18:01:10 |[90;43m 401 [0m|       18.25µs |       127.0.0.1 |[97;44m GET     [0m "/album/"
-[GIN] 2023/07/03 - 18:01:14 |[97;42m 200 [0m|     711.667µs |       127.0.0.1 |[97;44m GET     [0m "/album/"
