@@ -7,6 +7,13 @@
 [GIN-debug] GET    /api/v1/album/            --> gin/controller.GetAllAlbums (3 handlers)
 [GIN-debug] GET    /api/v1/album/:id         --> gin/controller.GetAlbumByID (3 handlers)
 [GIN-debug] POST   /api/v1/album/            --> gin/controller.CreateAlbum (3 handlers)
+[GIN-debug] GET    /api/v1/auth/basic        --> gin/controller.BasicAuth (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:3000
+[GIN] 2023/07/06 - 16:55:31 |[97;42m 200 [0m|     171.584µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/auth/basic"
+[GIN] 2023/07/06 - 16:55:36 |[97;42m 200 [0m|      34.125µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/auth/basic"
+[GIN] 2023/07/06 - 16:55:51 |[97;42m 200 [0m|     343.958µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/album/"
+[GIN] 2023/07/06 - 16:56:01 |[97;42m 200 [0m|     188.625µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/album/"
+[GIN] 2023/07/06 - 16:56:51 |[97;42m 200 [0m|      62.333µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/album/"
+[GIN] 2023/07/06 - 16:56:57 |[97;42m 200 [0m|      84.958µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/album/"

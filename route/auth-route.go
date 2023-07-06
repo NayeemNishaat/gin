@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthRoutes(s *gin.RouterGroup) {
-	router := s.Group("/auth")
+func AuthRoutes(gr *gin.RouterGroup) {
+	router := gr.Group("/auth")
 
-	router.POST("/basic", middleware.Auth(), controller.CreateAlbum)
+	router.GET("/basic", middleware.Auth(), controller.BasicAuth)
 }

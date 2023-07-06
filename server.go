@@ -27,6 +27,7 @@ func main() {
 	globalRouter := server.Group("/api/v1")
 
 	route.AlbumRoutes(globalRouter)
+	route.AuthRoutes(globalRouter)
 
 	server.Run("localhost:3000")
 	// router.Run(":3000")
