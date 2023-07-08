@@ -44,7 +44,7 @@ func VerifyPassword(password, hashedPassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
 }
 
-func LoginCheck(username string, password string) (string, error) {
+func ValidateLogin(username string, password string) (string, error) {
 
 	var err error
 

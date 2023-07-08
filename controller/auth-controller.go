@@ -15,8 +15,7 @@ func BasicAuth(c *gin.Context) {
 	})
 }
 
-func CurrentUser(c *gin.Context) {
-
+func Me(c *gin.Context) {
 	user_id, err := lib.ExtractTokenID(c)
 
 	if err != nil {
@@ -34,23 +33,23 @@ func CurrentUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "success", "data": u})
 }
 
-type RegisterInput struct {
+type RegisterData struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
 func Register(c *gin.Context) {
-	var input RegisterInput
+	var rd RegisterData
 
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&rd); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	u := model.User{}
 
-	u.Username = input.Username
-	u.Password = input.Password
+	u.Username = rd.Username
+	u.Password = rd.Password
 
 	_, err := u.SaveUser()
 
@@ -62,26 +61,25 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "registration success"})
 }
 
-type LoginInput struct {
+type LoginData struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
 func Login(c *gin.Context) {
+	var ld LoginData
 
-	var input LoginInput
-
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err := c.ShouldBindJSON(&ld); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	u := model.User{}
 
-	u.Username = input.Username
-	u.Password = input.Password
+	u.Username = ld.Username
+	u.Password = ld.Password
 
-	token, err := model.LoginCheck(u.Username, u.Password)
+	token, err := model.ValidateLogin(u.Username, u.Password)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
@@ -89,5 +87,4 @@ func Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": token})
-
 }

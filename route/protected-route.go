@@ -10,5 +10,6 @@ import (
 func Protected(gr *gin.RouterGroup) {
 	router := gr.Group("/protected")
 	router.Use(middleware.JwtAuthMiddleware())
-	router.GET("/", controller.BasicAuth)
+
+	router.GET("/", controller.Me)
 }
