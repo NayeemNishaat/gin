@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"gin/lib"
 	"gin/model"
 	"net/http"
 
@@ -16,10 +15,18 @@ func BasicAuth(c *gin.Context) {
 }
 
 func Me(c *gin.Context) {
-	userId, err := lib.ExtractTokenID(c)
+	// userId, err := lib.ExtractTokenID(c)
+	uId, _ := c.Get("userId")
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if uId == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user doesn't exist"})
+		return
+	}
+
+	userId, ok := uId.(uint)
+
+	if !ok {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid user id"})
 		return
 	}
 

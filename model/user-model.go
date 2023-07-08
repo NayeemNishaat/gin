@@ -74,16 +74,14 @@ func (u *User) PrepareGive() {
 	u.Password = ""
 }
 
-func GetUserByID(uid uint) (User, error) {
-
+func GetUserByID(userId uint) (User, error) {
 	var u User
 
-	if err := DB.First(&u, uid).Error; err != nil {
+	if err := DB.First(&u, userId).Error; err != nil {
 		return u, errors.New("User not found")
 	}
 
 	u.PrepareGive()
 
 	return u, nil
-
 }
