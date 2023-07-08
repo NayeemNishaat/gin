@@ -16,14 +16,14 @@ func BasicAuth(c *gin.Context) {
 }
 
 func Me(c *gin.Context) {
-	user_id, err := lib.ExtractTokenID(c)
+	userId, err := lib.ExtractTokenID(c)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	u, err := model.GetUserByID(user_id)
+	u, err := model.GetUserByID(userId)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -45,7 +45,6 @@ func VerifyPassword(password, hashedPassword string) error {
 }
 
 func ValidateLogin(username string, password string) (string, error) {
-
 	var err error
 
 	u := User{}
