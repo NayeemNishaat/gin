@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Protected(gr *gin.RouterGroup) {
-	router := gr.Group("/protected")
+func User(gr *gin.RouterGroup) {
+	router := gr.Group("/user")
 	router.Use(middleware.JwtAuthMiddleware())
 
 	router.GET("/", controller.Me)

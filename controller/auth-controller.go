@@ -15,32 +15,6 @@ func BasicAuth(c *gin.Context) {
 	})
 }
 
-func Me(c *gin.Context) {
-	// userId, err := lib.ExtractTokenID(c)
-	uId, _ := c.Get("userId")
-
-	if uId == nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "user doesn't exist"})
-		return
-	}
-
-	userId, ok := uId.(uint)
-
-	if !ok {
-		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "invalid user id"})
-		return
-	}
-
-	u, err := service.Me(userId)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"error": true, "message": "success", "data": u})
-}
-
 type RegisterData struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`

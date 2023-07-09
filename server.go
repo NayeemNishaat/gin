@@ -31,7 +31,7 @@ func main() {
 
 	route.AlbumRoutes(globalRouter)
 	route.AuthRoutes(globalRouter)
-	route.Protected(globalRouter)
+	route.User(globalRouter)
 
 	server.Run("localhost:3000")
 	// router.Run(":3000")
