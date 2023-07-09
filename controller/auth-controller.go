@@ -54,7 +54,7 @@ func Register(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&rd); err != nil {
 		if err.Error() == "EOF" {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Request body is missing!"})
+			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "Request body is missing!"})
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
 		}
@@ -64,11 +64,11 @@ func Register(c *gin.Context) {
 	_, err := service.Register(rd.Username, rd.Password)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "registration success"})
+	c.JSON(http.StatusOK, gin.H{"error": true, "message": "registration success"})
 }
 
 type LoginData struct {
@@ -79,22 +79,23 @@ type LoginData struct {
 func Login(c *gin.Context) {
 	var ld LoginData
 
+	errCustomizer := lib.GetCustomizer(ld)
+
 	if err := c.ShouldBindJSON(&ld); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		if err.Error() == "EOF" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "Request body is missing!"})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
+		}
 		return
 	}
 
-	u := model.User{}
-
-	u.Username = ld.Username
-	u.Password = ld.Password
-
-	token, err := model.ValidateLogin(u.Username, u.Password)
+	token, err := service.Login(ld.Username, ld.Password)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "username or password is incorrect."})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, gin.H{"error": false, "message": "Success!", "token": token})
 }
