@@ -18,26 +18,27 @@ type User struct {
 
 func (u *User) SaveUser() (*User, error) {
 	err := DB.Create(&u).Error
+
 	if err != nil {
 		return &User{}, err
 	}
+
 	return u, nil
 }
 
 func (u *User) BeforeSave() error {
-
-	//turn password into hash
+	// Part: Hash the Pass
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
+
 	u.Password = string(hashedPassword)
 
-	//remove spaces in username
+	// Part: Trim Username
 	u.Username = html.EscapeString(strings.TrimSpace(u.Username))
 
 	return nil
-
 }
 
 func VerifyPassword(password, hashedPassword string) error {
