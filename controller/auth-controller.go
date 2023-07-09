@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/golodash/galidator"
 )
 
 func BasicAuth(c *gin.Context) {
@@ -48,8 +49,13 @@ type RegisterData struct {
 func Register(c *gin.Context) {
 	var rd RegisterData
 
+	var (
+		g          = galidator.New()
+		customizer = g.Validator(RegisterData{})
+	)
+
 	if err := c.ShouldBindJSON(&rd); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": customizer.DecryptErrors(err)})
 		return
 	}
 

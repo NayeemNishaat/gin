@@ -13,7 +13,7 @@ import (
 type User struct {
 	gorm.Model
 	Username string `gorm:"size:255;not null;unique" json:"username"`
-	Password string `gorm:"size:255;not null;" json:"password"`
+	Password string `gorm:"size:255;not null;" json:"-"`
 }
 
 func (u *User) SaveUser() (*User, error) {
@@ -82,7 +82,7 @@ func GetUserByID(userId uint) (User, error) {
 		return u, errors.New("User not found")
 	}
 
-	u.PrepareGive()
+	// u.PrepareGive()
 
 	return u, nil
 }
