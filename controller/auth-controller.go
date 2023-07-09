@@ -1,11 +1,11 @@
 package controller
 
 import (
+	"gin/lib"
 	"gin/model"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golodash/galidator"
 )
 
 func BasicAuth(c *gin.Context) {
@@ -49,13 +49,14 @@ type RegisterData struct {
 func Register(c *gin.Context) {
 	var rd RegisterData
 
-	var (
-		g          = galidator.New()
-		customizer = g.Validator(RegisterData{})
-	)
+	errCustomizer := lib.GetCustomizer(rd)
 
 	if err := c.ShouldBindJSON(&rd); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": customizer.DecryptErrors(err)})
+		if err.Error() == "EOF" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Request body is missing!"})
+		} else {
+			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
+		}
 		return
 	}
 
