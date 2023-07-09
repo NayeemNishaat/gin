@@ -21,3 +21,7 @@ func Login(uname string, pass string) (string, error) {
 
 	return model.ValidateLogin(u.Username, u.Password)
 }
+
+func Me(userId uint) (model.User, error) {
+	return model.GetUserByID(userId)
+}

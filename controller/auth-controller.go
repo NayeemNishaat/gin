@@ -2,7 +2,6 @@ package controller
 
 import (
 	"gin/lib"
-	"gin/model"
 	"gin/service"
 	"net/http"
 
@@ -21,25 +20,25 @@ func Me(c *gin.Context) {
 	uId, _ := c.Get("userId")
 
 	if uId == nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "user doesn't exist"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "user doesn't exist"})
 		return
 	}
 
 	userId, ok := uId.(uint)
 
 	if !ok {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid user id"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "invalid user id"})
 		return
 	}
 
-	u, err := model.GetUserByID(userId)
+	u, err := service.Me(userId)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "success", "data": u})
+	c.JSON(http.StatusOK, gin.H{"error": true, "message": "success", "data": u})
 }
 
 type RegisterData struct {
@@ -97,5 +96,5 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"error": false, "message": "Success!", "token": token})
+	c.JSON(http.StatusOK, gin.H{"error": false, "message": "Success!", "data": map[string]string{"token": token}})
 }
