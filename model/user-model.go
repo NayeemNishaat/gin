@@ -69,8 +69,8 @@ func ValidateLogin(username string, password string) (string, error) {
 	}
 
 	return token, nil
-
 }
+
 func (u *User) PrepareGive() {
 	u.Password = ""
 }
