@@ -3,6 +3,7 @@ package controller
 import (
 	"gin/lib"
 	"gin/model"
+	"gin/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -60,12 +61,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	u := model.User{}
-
-	u.Username = rd.Username
-	u.Password = rd.Password
-
-	_, err := u.SaveUser()
+	_, err := service.Register(rd.Username, rd.Password)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
