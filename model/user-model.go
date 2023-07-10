@@ -5,15 +5,22 @@ import (
 	"gin/lib"
 	"html"
 	"strings"
+	"time"
 
-	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
 )
 
+type DefaultModel struct {
+	ID        uint       `gorm:"primary_key" json:"id"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `sql:"index" json:"deleted_at"`
+}
+
 type User struct {
-	gorm.Model
 	Username string `gorm:"size:255;not null;unique" json:"username"`
 	Password string `gorm:"size:255;not null;" json:"-"`
+	DefaultModel
 }
 
 func (u *User) SaveUser() (*User, error) {
