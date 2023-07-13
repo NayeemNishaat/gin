@@ -78,7 +78,7 @@ func ValidateLogin(username string, password string) (string, error) {
 	return token, nil
 }
 
-func (u *User) PrepareGive() {
+func (u *User) Clean() {
 	u.Password = ""
 }
 
@@ -89,7 +89,7 @@ func GetUserByID(userId uint) (User, error) {
 		return u, errors.New("User not found")
 	}
 
-	// u.PrepareGive()
+	u.Clean()
 
 	return u, nil
 }
