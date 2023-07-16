@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 func BasicAuth(c *gin.Context) {
@@ -46,10 +47,17 @@ func Register(c *gin.Context) {
 
 type LoginData struct {
 	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Password string `json:"password" binding:"required" validate:"isStrong"`
+	// Email string `json:"email" xml:"email" form:"email" binding:"required,min=3,max=10,email"`
+	// URL string `json:"url" binding:"required,url"`
+	// Age int8 `json:"age" binding:"gte=10,lte=100"`
 }
 
 func Login(c *gin.Context) {
+	var validate *validator.Validate
+	validate = validator.New()
+	validate.RegisterValidation("isStrong", lib.ValidateStrongPass)
+
 	var ld LoginData
 
 	errCustomizer := lib.GetCustomizer(ld)
@@ -60,6 +68,13 @@ func Login(c *gin.Context) {
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
 		}
+		return
+	}
+
+	err := validate.Struct(ld)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err})
 		return
 	}
 
