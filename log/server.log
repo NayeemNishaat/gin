@@ -14,24 +14,3 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:3000
-[GIN] 2023/07/13 - 12:00:25 |[90;43m 404 [0m|         333ns |       127.0.0.1 |[97;44m GET     [0m "/"
-[GIN] 2023/07/13 - 12:00:34 |[90;43m 404 [0m|         417ns |       127.0.0.1 |[97;46m POST    [0m "/"
-[GIN] 2023/07/13 - 12:00:51 |[90;43m 400 [0m|     182.667µs |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:02:55 |[90;43m 400 [0m|      62.666µs |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:03:33 |[90;43m 400 [0m|     154.167µs |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:03:51 |[97;42m 200 [0m|  104.775542ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:04:31 |[97;42m 200 [0m|   90.349542ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:04:39 |[97;42m 200 [0m|   90.550542ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:04:51 |[97;42m 200 [0m|      97.511ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:05:01 |[97;42m 200 [0m|     91.7765ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:05:41 |[90;43m 400 [0m|        46.5µs |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:05:51 |[97;42m 200 [0m|   90.192375ms |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/login"
-[GIN] 2023/07/13 - 12:06:23 |[90;43m 404 [0m|         458ns |       127.0.0.1 |[97;46m POST    [0m "/api/v1/auth/me"
-[GIN] 2023/07/13 - 12:06:57 |[90;43m 404 [0m|         375ns |       127.0.0.1 |[0m get     [0m "/api/v1/user"
-[GIN-debug] redirecting request 301: /api/v1/user/ --> /api/v1/user/
-[GIN-debug] redirecting request 301: /api/v1/user/ --> /api/v1/user/
-[GIN] 2023/07/13 - 12:07:19 |[90;43m 401 [0m|        5.75µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/user/"
-[GIN-debug] redirecting request 301: /api/v1/user/ --> /api/v1/user/
-[GIN] 2023/07/13 - 12:07:49 |[90;43m 401 [0m|       5.167µs |       127.0.0.1 |[97;44m GET     [0m "/api/v1/user/"
-[GIN-debug] redirecting request 301: /api/v1/user/ --> /api/v1/user/
-[GIN] 2023/07/13 - 12:08:15 |[97;42m 200 [0m|    1.018542ms |       127.0.0.1 |[97;44m GET     [0m "/api/v1/user/"

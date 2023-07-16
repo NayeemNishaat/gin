@@ -18,10 +18,16 @@ func BasicAuth(c *gin.Context) {
 
 type RegisterData struct {
 	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Password string `json:"password" validate:"isStrong" binding:"required" message:"OK"`
+	// Email string `json:"email" xml:"email" form:"email" binding:"required,min=3,max=10,email"`
+	// URL string `json:"url" binding:"required,url"`
+	// Age int8 `json:"age" binding:"gte=10,lte=100"`
 }
 
 func Register(c *gin.Context) {
+	validate := validator.New()
+	validate.RegisterValidation("isStrong", lib.ValidateStrongPass)
+
 	var rd RegisterData
 
 	errCustomizer := lib.GetCustomizer(rd)
@@ -35,7 +41,14 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	_, err := service.Register(rd.Username, rd.Password)
+	err := validate.Struct(rd)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
+		return
+	}
+
+	_, err = service.Register(rd.Username, rd.Password)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
@@ -47,17 +60,10 @@ func Register(c *gin.Context) {
 
 type LoginData struct {
 	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required" validate:"isStrong"`
-	// Email string `json:"email" xml:"email" form:"email" binding:"required,min=3,max=10,email"`
-	// URL string `json:"url" binding:"required,url"`
-	// Age int8 `json:"age" binding:"gte=10,lte=100"`
+	Password string `json:"password" binding:"required"`
 }
 
 func Login(c *gin.Context) {
-	var validate *validator.Validate
-	validate = validator.New()
-	validate.RegisterValidation("isStrong", lib.ValidateStrongPass)
-
 	var ld LoginData
 
 	errCustomizer := lib.GetCustomizer(ld)
@@ -68,13 +74,6 @@ func Login(c *gin.Context) {
 		} else {
 			c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
 		}
-		return
-	}
-
-	err := validate.Struct(ld)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err})
 		return
 	}
 
