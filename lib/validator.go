@@ -2,31 +2,36 @@ package lib
 
 import (
 	"unicode"
-
-	"github.com/go-playground/validator/v10"
 )
 
-func ValidateStrongPass(field validator.FieldLevel) bool {
+func ValidateStrongPass(field any) bool { // field validator.FieldLevel
 	// strings.Contains(field.Field().String(), "")
 	// match, _ := regexp.MatchString("^[a-aA-Z]$", field.Field().String())
 
-	str := field.Field().String()
+	// str := field.Field().String()
+	str, ok := field.(string)
+
+	if !ok {
+		return false
+	}
+
 	letters := 0
 	number := false
 	upper := false
 	special := false
 
 	for _, c := range str {
+		letters++
+
 		switch {
 		case unicode.IsNumber(c):
 			number = true
 		case unicode.IsUpper(c):
 			upper = true
-			letters++
 		case unicode.IsPunct(c):
 			special = true
-		case unicode.IsLetter(c) || c == ' ':
-			letters++
+		// case unicode.IsLetter(c) || c == ' ':
+		// letters++
 		default:
 		}
 	}

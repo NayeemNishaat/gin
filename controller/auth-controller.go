@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
+	"github.com/golodash/galidator"
 )
 
 func BasicAuth(c *gin.Context) {
@@ -18,19 +18,22 @@ func BasicAuth(c *gin.Context) {
 
 type RegisterData struct {
 	Username string `json:"username" binding:"required"`
-	Password string `json:"password" validate:"isStrong" binding:"required" message:"OK"`
+	Password string `json:"password" g:"isStrong" isStrong:"$field should contain at least a special character, a number, a uppercase letter and minimum 8 characters long" binding:"required" required:"$field is required"`
+	// Password string `json:"password" validate:"isStrong" binding:"required" required:"$field is required"`
 	// Email string `json:"email" xml:"email" form:"email" binding:"required,min=3,max=10,email"`
 	// URL string `json:"url" binding:"required,url"`
 	// Age int8 `json:"age" binding:"gte=10,lte=100"`
 }
 
 func Register(c *gin.Context) {
-	validate := validator.New()
-	validate.RegisterValidation("isStrong", lib.ValidateStrongPass)
+	// validate := validator.New()
+	// validate.RegisterValidation("isStrong", lib.ValidateStrongPass)
 
 	var rd RegisterData
 
-	errCustomizer := lib.GetCustomizer(rd)
+	CustomValidators := galidator.Validators{"isStrong": lib.ValidateStrongPass}
+
+	errCustomizer := lib.GetCustomCustomizer(rd, CustomValidators)
 
 	if err := c.ShouldBindJSON(&rd); err != nil {
 		if err.Error() == "EOF" {
@@ -41,14 +44,15 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	err := validate.Struct(rd)
+	// error := validate.Struct(rd)
+	error := errCustomizer.Validate(rd)
 
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error(), "validation": errCustomizer.DecryptErrors(err)})
+	if error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": "Validation Failed", "validation": error})
 		return
 	}
 
-	_, err = service.Register(rd.Username, rd.Password)
+	_, err := service.Register(rd.Username, rd.Password)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": true, "message": err.Error()})
