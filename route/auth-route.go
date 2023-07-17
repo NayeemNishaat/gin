@@ -7,8 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AuthRoutes(gr *gin.RouterGroup) {
-	router := gr.Group("/auth")
+func AuthRoutes(ar *gin.RouterGroup) {
+	router := ar.Group("/auth")
 
 	router.GET("/basic", middleware.Auth(), controller.BasicAuth)
 

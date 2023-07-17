@@ -27,11 +27,20 @@ func main() {
 	model.ConnectDataBase()
 
 	server := gin.Default()
-	globalRouter := server.Group("/api/v1")
 
-	route.AlbumRoutes(globalRouter)
-	route.AuthRoutes(globalRouter)
-	route.User(globalRouter)
+	server.Static("/style", "./public/style")
+	server.LoadHTMLGlob("./public/template/*.html")
+
+	apiRouter := server.Group("/api/v1")
+	viewRouter := server.Group("/")
+
+	// Chapter: APIs
+	route.AlbumRoutes(apiRouter)
+	route.AuthRoutes(apiRouter)
+	route.User(apiRouter)
+
+	// Chapter: Views
+	route.View(viewRouter)
 
 	server.Run("localhost:3000")
 	// router.Run(":3000")
