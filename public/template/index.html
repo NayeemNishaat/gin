@@ -4,23 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../style/style.css" />
+
     <title>{{.title}}</title>
   </head>
   <body>
     {{template "header.html"}}
     <hr />
 
-    {{range .albums}}
+    {{$len := len .albums }} {{range $i, $el := .albums}}
     <div>
       <div>
-        <img src="{{.URL}}" alt="{{.Title}}" />
+        <img src="{{.URL}}" alt="{{$.Title}}" />
       </div>
-      <h1>{{.Title}}</h1>
-      <h3>{{.Artist}}</h3>
-      <p>{{.Price}}</p>
+      <h1>{{$el.Title}}</h1>
+      <h3>{{$el.Artist}}</h3>
+      <p>{{$el.Price}}</p>
     </div>
-    {{end}}
-
+    {{if not (eq $len $i) }}
+    <hr />
+    <p>{{.}}</p>
+    {{end}} {{end}}
     <hr />
     {{template "footer.html"}}
   </body>
