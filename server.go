@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin/model"
 	"gin/route"
+	"html/template"
 	"io"
 	"os"
 
@@ -21,6 +22,9 @@ func storeLog() {
 	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 	gin.ForceConsoleColor()
 }
+func sub(a int, b int) int {
+	return a - b
+}
 
 func main() {
 	storeLog()
@@ -28,6 +32,9 @@ func main() {
 
 	server := gin.Default()
 
+	server.SetFuncMap(template.FuncMap{
+		"sub": sub,
+	})
 	server.Static("/style", "./public/style")
 	server.LoadHTMLGlob("./public/template/*.html")
 

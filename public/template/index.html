@@ -13,7 +13,7 @@
     {{template "header.html"}}
     <hr />
 
-    {{$len := len .albums }} {{range $i, $el := .albums}}
+    {{$len := sub (len .albums) 1 }} {{range $i, $el := .albums}}
     <div>
       <div>
         <img src="{{.URL}}" alt="{{$.Title}}" />
