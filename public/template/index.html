@@ -21,10 +21,10 @@
       <h1>{{$el.Title}}</h1>
       <h3>{{$el.Artist}}</h3>
       <p>{{$el.Price}}</p>
+      <p>{{.}}</p>
     </div>
     {{if not (eq $len $i) }}
     <hr />
-    <p>{{.}}</p>
     {{end}} {{end}}
     <hr />
     {{template "footer.html"}}
