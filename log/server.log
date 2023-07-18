@@ -7,10 +7,10 @@
 [GIN-debug] GET    /style/*filepath          --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
 [GIN-debug] HEAD   /style/*filepath          --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
 [GIN-debug] Loaded HTML Templates (4): 
+	- index.html
 	- 
 	- footer.html
 	- header.html
-	- index.html
 
 [GIN-debug] GET    /api/v1/album/            --> gin/controller.GetAllAlbums (3 handlers)
 [GIN-debug] GET    /api/v1/album/:id         --> gin/controller.GetAlbumByID (3 handlers)
@@ -23,6 +23,4 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:3000
-[GIN] 2023/07/18 - 17:10:54 |[97;42m 200 [0m|    2.780333ms |       127.0.0.1 |[97;44m GET     [0m "/"
-[GIN] 2023/07/18 - 17:10:54 |[90;47m 304 [0m|     125.083µs |       127.0.0.1 |[97;44m GET     [0m "/style/style.css"
-[GIN] 2023/07/18 - 17:10:54 |[90;43m 404 [0m|         334ns |       127.0.0.1 |[97;44m GET     [0m "/favicon.ico"
+[GIN] 2023/07/18 - 17:23:58 |[97;42m 200 [0m|    1.209667ms |       127.0.0.1 |[97;44m GET     [0m "/"

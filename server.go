@@ -1,40 +1,20 @@
 package main
 
 import (
-	"fmt"
+	"gin/lib"
 	"gin/model"
 	"gin/route"
-	"html/template"
-	"io"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
-func storeLog() {
-	// f, err := os.OpenFile("./log/server.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644) // Note: Append
-	f, err := os.Create("./log/server.log") // Note: Create New and Append
-
-	if err != nil {
-		fmt.Println("Open Log File Failed", err)
-	}
-
-	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
-	gin.ForceConsoleColor()
-}
-func sub(a int, b int) int {
-	return a - b
-}
-
 func main() {
-	storeLog()
+	lib.StoreLog()
 	model.ConnectDataBase()
 
 	server := gin.Default()
 
-	server.SetFuncMap(template.FuncMap{
-		"sub": sub,
-	})
+	lib.MountFuncMap(server)
 	server.Static("/style", "./public/style")
 	server.LoadHTMLGlob("./public/template/*.html")
 
