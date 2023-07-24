@@ -1,18 +1,45 @@
 package main
 
 import (
+	_ "gin/docs"
 	"gin/lib"
 	"gin/model"
 	"gin/route"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// @title Album APIs
+// @version 1.0
+// @description Album API Doc.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @securityDefinitions.apiKey JWT
+// @in header
+// @name token
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:3000
+// @BasePath /api/v1
+
+// @schemes http
 func main() {
 	lib.StoreLog()
 	model.ConnectDataBase()
 
 	server := gin.Default()
+
+	// Chapter: Mount Swagger
+	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	lib.MountFuncMap(server)
 	server.Static("/style", "./public/style")
@@ -29,9 +56,13 @@ func main() {
 	// Chapter: Views
 	route.View(viewRouter)
 
-	server.Run("localhost:3000")
+	server.Run("localhost:" + os.Getenv("PORT"))
+	// server.Run(":" + os.Getenv("PORT"))
 	// router.Run(":3000")
 	// router.Run()
 }
 
 // nodemon -q -e go --signal SIGTERM --exec go run .
+// PATH=$(go env GOPATH)/bin:$PATH // Add GO Bin path to PATH
+// swag init -g server.go
+// swag init (default main.go)
