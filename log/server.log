@@ -24,8 +24,3 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:3000
-[GIN] 2023/07/24 - 14:03:04 |[97;42m 200 [0m|    1.271083ms |       127.0.0.1 |[97;44m GET     [0m "/swagger/index.html"
-[GIN] 2023/07/24 - 14:03:04 |[97;42m 200 [0m|         245µs |       127.0.0.1 |[97;44m GET     [0m "/swagger/swagger-ui.css"
-[GIN] 2023/07/24 - 14:03:04 |[97;42m 200 [0m|       493.5µs |       127.0.0.1 |[97;44m GET     [0m "/swagger/swagger-ui-standalone-preset.js"
-[GIN] 2023/07/24 - 14:03:04 |[97;42m 200 [0m|    1.846208ms |       127.0.0.1 |[97;44m GET     [0m "/swagger/swagger-ui-bundle.js"
-[GIN] 2023/07/24 - 14:03:04 |[97;42m 200 [0m|     147.292µs |       127.0.0.1 |[97;44m GET     [0m "/swagger/doc.json"

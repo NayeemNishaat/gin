@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "gin/docs"
+	"gin/doc"
 	"gin/lib"
 	"gin/model"
 	"gin/route"
@@ -28,10 +28,13 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host localhost:3000
+// @externalDocs.description  Swaggo
+// @externalDocs.url https://github.com/swaggo/swag
+
 // @BasePath /api/v1
 
-// @schemes http
+// @schemes http https
+
 func main() {
 	lib.StoreLog()
 	model.ConnectDataBase()
@@ -56,6 +59,7 @@ func main() {
 	// Chapter: Views
 	route.View(viewRouter)
 
+	doc.SwaggerInfo.Host = "localhost:" + os.Getenv("PORT")
 	server.Run("localhost:" + os.Getenv("PORT"))
 	// server.Run(":" + os.Getenv("PORT"))
 	// router.Run(":3000")
@@ -65,4 +69,4 @@ func main() {
 // nodemon -q -e go --signal SIGTERM --exec go run .
 // PATH=$(go env GOPATH)/bin:$PATH // Add GO Bin path to PATH
 // swag init -g server.go
-// swag init (default main.go)
+// swag init -g server.go -o ./doc - Create doc.go

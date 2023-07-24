@@ -10,7 +10,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// getAlbums responds with the list of all albums as JSON.
+// @Summary Get All Albums
+// @Description Get The List Of Albums
+// @Tags Album
+// @Accept mpfd
+// @Produce json
+// @Success 200 {array} model.Album
+// @Router /album [get]
 func GetAllAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, service.GetAllAlbums())
 }
