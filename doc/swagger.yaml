@@ -5,7 +5,7 @@ definitions:
       artist:
         type: string
       id:
-        description: 'Note: JSON tag'
+        description: 'Note: swaggerignore:"true"'
         type: string
       price:
         type: number
@@ -45,6 +45,33 @@ paths:
               $ref: '#/definitions/model.Album'
             type: array
       summary: Get All Albums
+      tags:
+      - Album
+    post:
+      consumes:
+      - application/json
+      description: Create An Album
+      parameters:
+      - description: Album Data
+        in: body
+        name: album
+        required: true
+        schema:
+          $ref: '#/definitions/model.Album'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Album'
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+      security:
+      - JWT: []
+      summary: Create Album
       tags:
       - Album
 schemes:

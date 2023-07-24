@@ -49,6 +49,49 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "description": "Create An Album",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Create Album",
+                "parameters": [
+                    {
+                        "description": "Album Data",
+                        "name": "album",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Album"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Album"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
             }
         }
     },
@@ -60,7 +103,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "description": "Note: JSON tag",
+                    "description": "Note: swaggerignore:\"true\"",
                     "type": "string"
                 },
                 "price": {

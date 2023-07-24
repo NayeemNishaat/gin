@@ -8,10 +8,10 @@
 [GIN-debug] GET    /style/*filepath          --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
 [GIN-debug] HEAD   /style/*filepath          --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
 [GIN-debug] Loaded HTML Templates (4): 
-	- 
-	- footer.html
 	- header.html
 	- index.html
+	- 
+	- footer.html
 
 [GIN-debug] GET    /api/v1/album/            --> gin/controller.GetAllAlbums (3 handlers)
 [GIN-debug] GET    /api/v1/album/:id         --> gin/controller.GetAlbumByID (3 handlers)

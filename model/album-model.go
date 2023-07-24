@@ -2,7 +2,7 @@ package model
 
 // album represents data about a record album.
 type Album struct {
-	ID     string  `json:"id"` // Note: JSON tag
+	ID     string  `json:"id"` // Note: swaggerignore:"true"
 	Title  string  `json:"title"`
 	Artist string  `json:"artist"`
 	Price  float64 `json:"price"`

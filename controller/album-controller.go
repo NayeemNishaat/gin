@@ -17,11 +17,23 @@ import (
 // @Produce json
 // @Success 200 {array} model.Album
 // @Router /album [get]
+// Note: @Param        q    query     string  false  "name search by q"  Format(email)
 func GetAllAlbums(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, service.GetAllAlbums())
 }
 
-// postAlbums adds an album from JSON received in the request body.
+// @Summary Create Album
+// @Description Create An Album
+// @Tags Album
+// @Accept json
+// @Produce json
+// @Param album body model.Album true "Album Data"
+// @Success 200 {object} model.Album
+// @securityDefinitions.apiKey token
+// @in header
+// @name Authorization
+// @Security JWT
+// @Router /album [post]
 func CreateAlbum(c *gin.Context) {
 	bb, _ := io.ReadAll(c.Request.Body) // Important: c.Request.Body will be empty if we read it
 	c.Request.Body = io.NopCloser(bytes.NewReader(bb))
@@ -33,7 +45,6 @@ func CreateAlbum(c *gin.Context) {
 }
 
 // getAlbumByID locates the album whose ID value matches the id
-// parameter sent by the client, then returns that album as a response.
 func GetAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
