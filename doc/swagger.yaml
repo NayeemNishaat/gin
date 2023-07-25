@@ -65,13 +65,30 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Album'
-        "400":
-          description: Bad Request
-          schema:
-            type: object
       security:
       - JWT: []
       summary: Create Album
+      tags:
+      - Album
+  /album/{id}:
+    get:
+      description: Get An Album By Id
+      parameters:
+      - description: Album Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Album'
+      security:
+      - JWT: []
+      summary: Get Album
       tags:
       - Album
 schemes:

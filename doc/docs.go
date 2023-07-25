@@ -84,11 +84,39 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/model.Album"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                    }
+                }
+            }
+        },
+        "/album/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "description": "Get An Album By Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Get Album",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Album Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/model.Album"
                         }
                     }
                 }

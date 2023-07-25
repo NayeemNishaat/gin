@@ -44,7 +44,17 @@ func CreateAlbum(c *gin.Context) {
 	c.IndentedJSON(http.StatusCreated, service.CreateAlbum(c))
 }
 
-// getAlbumByID locates the album whose ID value matches the id
+// @Summary Get Album
+// @Description Get An Album By Id
+// @Tags Album
+// @Produce json
+// @Param id path int true "Album Id"
+// @Success 200 {object} model.Album
+// @securityDefinitions.apiKey token
+// @in header
+// @name Authorization
+// @Security JWT
+// @Router /album/{id} [get]
 func GetAlbumByID(c *gin.Context) {
 	id := c.Param("id")
 
