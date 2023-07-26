@@ -1,6 +1,7 @@
 package test
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"gin/controller"
@@ -30,4 +31,19 @@ func TestGetAllAlbums(t *testing.T) {
 
 	assert.NotEqual(t, albums, nil)
 	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestCreateAlbum(t *testing.T) {
+	r := GetRouter()
+
+	r.POST("/api/v1/album", controller.CreateAlbum)
+
+	album := model.Album{ID: "4", Title: "Custom Albm", Artist: "ABC", Price: 30, URL: "Not Available"}
+	stringifiedAlbum, _ := json.Marshal(album)
+
+	req, _ := http.NewRequest("POST", "/api/v1/album", bytes.NewBuffer(stringifiedAlbum))
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusCreated, w.Code)
 }
